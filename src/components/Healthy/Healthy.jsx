@@ -80,7 +80,7 @@ export default function Healthy() {
   {/* RIGHT IMAGE */}
   <div className="w-[55%] flex justify-end">
     <Image
-      src="/Mask-group.png"
+      src="/Mask-img.png"
       alt="health"
       width={700}
       height={450}
