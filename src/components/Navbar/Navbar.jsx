@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import CustomButton from "../btn/page";
 
 export default function Navbar() {
   const path = usePathname();
@@ -84,9 +85,9 @@ export default function Navbar() {
 
         {/* Desktop Login Button */}
         <Link href="/login" className="hidden md:block">
-          <button className="bg-[rgba(161,29,40,1)] text-white px-5 py-2 rounded-lg font-medium hover:bg-[rgba(140,25,35,1)] transition">
-            Login
-          </button>
+          <CustomButton className="bg-[#A11D28]">
+  <span>Login</span>
+</CustomButton>
         </Link>
 
         {/* Mobile Menu Button */}

@@ -1,4 +1,5 @@
  import { FlaskConical, ClipboardCheck, HeartPulse } from "lucide-react";
+import CustomButton from "../btn/page";
 
 export default function HowItWorks() {
   const steps = [
@@ -70,13 +71,16 @@ export default function HowItWorks() {
 
             {/* Buttons */}
             <div className="flex flex-col sm:flex-row items-center md:items-start gap-4 sm:gap-6">
-              <button className="bg-white text-red-500 px-6 py-3 rounded-md font-semibold text-sm w-full sm:w-auto">
-                GET STARTED
-              </button>
+              <CustomButton
+  variant="whiteRed"
+  className="px-6 py-3 font-semibold text-sm w-full sm:w-auto btn-all"
+>
+  GET STARTED
+</CustomButton>
 
-              <button className="text-white underline text-sm">
-                MORE ON HOW IT WORKS
-              </button>
+             <button className="text-white underline text-lg mt-5 hover:text-[#86151d] transition">
+  MORE ON HOW IT WORKS
+</button>
             </div>
           </div>
 

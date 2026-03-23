@@ -52,13 +52,21 @@ export default function Pricing() {
         {plans.map((plan, i) => (
           <div
             key={i}
-            className={`relative w-full min-h-130 rounded-2xl p-6 sm:p-8 flex flex-col justify-between
+            className={`relative w-full min-h-130 rounded-2xl p-6 pt-12 sm:p-8 flex flex-col justify-between
             ${
               plan.highlight
                 ? "bg-linear-to-b from-[#f8c9cc] to-[#f3e9ea] shadow-xl"
                 : "bg-[#f1f2f4] border border-gray-200"
             }`}
           >
+           {plan.highlight && (
+  <div className="absolute top-0 left-0 w-17 h-15 overflow-hidden rounded-tl-2xl z-0">
+    
+    <div className="absolute top-0 left-0 w-full h-full bg-[#e39fa5] clip-triangle" />
+    <div className="absolute top-0 left-0 w-full h-full bg-white/20 clip-triangle" />
+    
+  </div>
+)}
             {/* Icon */}
             <div className="w-10 h-10 flex items-center justify-center rounded-lg bg-linear-to-br from-[#b94b5b] to-[#7b1f2a] shadow-md">
               {plan.icon}

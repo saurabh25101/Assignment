@@ -1,30 +1,73 @@
- import AuthCard from "@/components/AuthCard";
-import Link from "next/link";
+"use client";
+
+import AuthCard from "@/components/AuthCard";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function NewPasswordForm() {
+  const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
+  const router = useRouter();
+
+  const handleUpdate = async () => {
+    if (password !== confirm) {
+      alert("Passwords do not match");
+      return;
+    }
+
+    const email = localStorage.getItem("email");
+
+    const res = await fetch("http://localhost:5000/api/auth/reset-password", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      alert("Password updated");
+
+      router.push("/success");
+    } else {
+      alert(data.message || "Error");
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#f7f2f2] px-4">
-      
-      <div className="w-full max-w-md"> 
-        <AuthCard title="New Password" desc="Choose a strong password that you haven’t used before to keep your personal information and medical reports safe. Once updated, you can continue managing your lab tests, viewing reports, and tracking your health with confidence.">
-          
+      <div className="w-full max-w-md">
+        <AuthCard title="New Password" desc="Choose a strong password...">
           <div className="flex flex-col gap-4">
-            <input type="password" placeholder="Old Password" className="input" />
-            <input type="password" placeholder="New Password" className="input" />
-            <input type="password" placeholder="Confirm Password" className="input" />
+            <input
+              type="password"
+              placeholder="New Password"
+              className="input"
+              onChange={(e) => setPassword(e.target.value)}
+            />
 
-<p className="text-[10px] text-gray-400  whitespace-nowrap">
-  Use 8 or more characters with a mix of letters, numbers and symbols
-</p>
-      
-              <Link href="/success">
-  <button className=" btn w-full">Update</button>
-</Link>
+            <input
+              type="password"
+              placeholder="Confirm Password"
+              className="input"
+              onChange={(e) => setConfirm(e.target.value)}
+            />
+
+            <p className="text-[10px] text-gray-400">
+              Use 8+ characters with mix of letters, numbers, symbols
+            </p>
+
+            <button onClick={handleUpdate} className="btn w-full">
+              Update
+            </button>
           </div>
-
         </AuthCard>
       </div>
-
     </div>
   );
 }

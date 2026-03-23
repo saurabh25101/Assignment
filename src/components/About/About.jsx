@@ -1,4 +1,5 @@
 import Image from "next/image";
+import CustomButton from "../btn/page";
 
 const ArrowTrendingUp = () => (
   <svg
@@ -179,9 +180,9 @@ export default function About() {
             life, performance and longevity.
           </p>
 
-          <button className="mt-8 bg-white text-black px-6 py-3 rounded-lg font-medium hover:bg-gray-200 transition mb-10">
-            Explore More
-          </button>
+          <CustomButton variant="white" className="mt-8 px-6 py-3 font-medium mb-10 btn-all">
+  Explore More
+</CustomButton>
         </div>
       </div>
     </section>

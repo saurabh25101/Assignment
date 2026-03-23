@@ -1,6 +1,7 @@
  "use client";
 import Image from "next/image";
 import { useState } from "react";
+import CustomButton from "../btn/page";
 
 export default function Healthy() {
   const [active, setActive] = useState(0);
@@ -55,11 +56,13 @@ export default function Healthy() {
       <div className="w-full bg-white">
         {active === 0 ? (
        
-          <div className="relative w-full overflow-hidden bg-white flex items-center">
+        <div className="relative w-full overflow-hidden bg-white flex flex-col md:flex-row items-center">
 
   {/* LEFT CONTENT */}
-  <div className="w-[45%] z-10 pl-10 pr-6 py-10">
-    <h3 className="text-3xl font-bold mb-5">Daily Health</h3>
+ <div className="w-full md:w-[45%] z-10 px-6 md:pl-10 md:pr-6 py-10 text-center md:text-left">
+    <h3 className="font-semibold text-2xl sm:text-3xl md:text-[38px] mb-5">
+  Daily Health
+</h3>
 
     <p className="text-gray-500 mb-6 max-w-85">
       Something feels off—but what? From inflammation to blood sugar...
@@ -72,13 +75,15 @@ export default function Healthy() {
       <span>MANAGE STRESS</span>
     </div>
 
-    <button className="bg-[#8B1A1A] text-white px-6 py-2 text-sm rounded">
-      LEARN MORE
-    </button>
+     <CustomButton
+  className=" bg-[#A11D28] text-white px-6 py-2 text-sm hover:bg-[#86151d] transition duration-300 btn-all"
+>
+  LEARN MORE
+</CustomButton>
   </div>
 
   {/* RIGHT IMAGE */}
-  <div className="w-[55%] flex justify-end">
+ <div className="w-full md:w-[55%] flex justify-center md:justify-end mt-6 md:mt-0 mb-5">
     <Image
       src="/Mask-img.png"
       alt="health"

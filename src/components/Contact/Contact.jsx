@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import CustomButton from "../btn/page";
 
 const schema = z.object({
   name: z.string().min(2, "Name is required"),
@@ -29,7 +30,7 @@ export default function ContactForm() {
     <section className="w-full bg-[#040847] flex justify-center">
       <div className="max-w-7xl w-full mx-auto flex flex-col justify-center px-6 md:px-10 py-16">
         <div className="text-center max-w-150 mx-auto">
-          <h2 className="text-[40px] font-semibold">Contact Us</h2>
+          <h2 className="text-[40px] text-white font-semibold">Contact Us</h2>
           <p className="text-[#C7C9D9] text-[14px]    ">
             Your health matters to us. Whether you are booking a test, reviewing
             your results, or seeking clarification, our experts are ready to
@@ -37,7 +38,7 @@ export default function ContactForm() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-20 items-center mt-20">
+ <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-center mt-20">
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="space-y-4 max-w-120"
@@ -79,12 +80,12 @@ export default function ContactForm() {
               <p className="text-red-400 text-sm">{errors.message.message}</p>
             )}
 
-            <button
-              type="submit"
-              className="bg-[#A11D28] px-6 py-3 text-[14px] text-white rounded-md"
-            >
-              Send a Message
-            </button>
+            <CustomButton
+  type="submit"
+  className="bg-[#A11D28] px-6 py-3 text-[14px] text-white hover:bg-[#86151d] transition duration-300 btn-all"
+>
+  Send a Message
+</CustomButton>
           </form>
 
           <div>

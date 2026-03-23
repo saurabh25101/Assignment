@@ -1,4 +1,6 @@
  import Image from "next/image";
+import CustomButton from "../btn/page";
+import Link from "next/link";
 
 export default function Hero() {
   return (
@@ -20,30 +22,35 @@ export default function Hero() {
       <div className="relative max-w-2xl text-left">
         
         {/* Heading */}
-        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
-          Know Your Body <br />
-          Transform Your Health <br />
-          Live Your Life
-        </h1>
-
+      <h1 className="text-[36px] sm:text-[48px] md:text-[60px]  
+font-bold text-white leading-[1.26] tracking-normal">
+  Know Your Body <br />
+  Transform Your Health <br />
+  Live Your Life
+</h1>
         {/* Paragraph */}
-        <p className="text-gray-200 mt-4 sm:mt-6 text-base sm:text-lg md:text-xl leading-relaxed">
-          Functional blood testing with personalised insights and clear guidance,
-          helping you take control of your health and make confident, proactive decisions.
-        </p>
+        <p className="text-gray-200 mt-4 sm:mt-6 font-medium text-[15px] sm:text-[16px] md:text-[18px] leading-[28px] md:leading-[30px] max-w-2xl">
+  Functional blood testing with personalised insights and clear guidance,
+  helping you take control of your health and make confident, proactive decisions.
+</p>
 
         {/* Buttons */}
-        <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row gap-4">
-          
-          <button className="bg-[rgba(161,29,40,1)] text-white px-6 py-3 rounded-lg font-medium hover:bg-[rgba(140,25,35,1)] hover:scale-105 active:scale-95 transition-all duration-200 w-full sm:w-auto">
-            Book now
-          </button>
+       <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row gap-4">
 
-          <button className="border border-white text-white px-6 py-3 rounded-lg hover:bg-white/10 transition-all duration-200 w-full sm:w-auto">
-            Find your test
-          </button>
+  <Link href="/login" className="w-full sm:w-auto">
+    <CustomButton className="btn-all w-full sm:w-auto">
+      Login
+    </CustomButton>
+  </Link>
 
-        </div>
+  <CustomButton
+    variant="outline"
+    className="btn-all w-full sm:w-auto  mb-5"
+  >
+    Book Now
+  </CustomButton>
+
+</div>
       </div>
     </section>
   );

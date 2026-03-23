@@ -30,11 +30,11 @@ export default function NoData({ params }) {
 
       {/* Button */}
       <Link
-        href="/"
-        className="mt-6 bg-[rgba(161,29,40,1)] text-white px-6 py-2 rounded-lg hover:bg-[rgba(140,25,35,1)] transition"
-      >
-        Go Back Home
-      </Link>
+  href="/"
+  className="mt-6 px-6 py-2 rounded-lg btn-primary inline-block text-center"
+>
+  Go Back Home
+</Link>
     </div>
   );
 }
