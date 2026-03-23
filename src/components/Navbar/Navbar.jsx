@@ -1,4 +1,4 @@
-"use client";
+ "use client";
 
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
@@ -48,12 +48,16 @@ export default function Navbar() {
 
   return (
     <header className="w-full bg-white shadow-sm">
-      {/* NAVBAR */}
-      <nav className="flex items-center justify-between px-4 md:px-10 py-4">
-        <Image src="/logo.png" alt="logo" width={235} height={41} />
 
-        {/* Desktop Menu */}
-        <ul className="hidden md:flex items-center gap-8 text-gray-700 font-medium">
+      {/* NAVBAR */}
+      <nav className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 md:px-8 lg:px-12 py-4">
+
+        {/* LOGO */}
+        <Image src="/logo.png" alt="logo" width={200} height={40} />
+
+        {/* DESKTOP MENU */}
+        <ul className="hidden lg:flex items-center gap-4 xl:gap-6 text-gray-700 font-medium text-sm xl:text-base whitespace-nowrap">
+
           <li className={isHome ? activeClass : ""}>
             <Link href="/">Home</Link>
           </li>
@@ -83,24 +87,41 @@ export default function Navbar() {
           </li>
         </ul>
 
-        {/* Desktop Login Button */}
-        <Link href="/login" className="hidden md:block">
-          <CustomButton className="bg-[#A11D28]">
-  <span>Login</span>
-</CustomButton>
+        {/* LOGIN */}
+        <Link href="/login" className="hidden lg:block">
+          <CustomButton className="bg-[#A11D28] px-4 py-2 text-sm xl:text-base">
+            Login
+          </CustomButton>
         </Link>
 
-        {/* Mobile Menu Button */}
-        <button className="md:hidden" onClick={() => setOpen(true)}>
+        {/* MOBILE */}
+        <button className="lg:hidden" onClick={() => setOpen(true)}>
           <Bars3Icon className="w-7 h-7" />
         </button>
       </nav>
 
+      {/* SUBMENU (DESKTOP) */}
+      {showSubmenu && (
+        <div className="border-t">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 py-3 hidden lg:flex gap-10 text-md text-gray-700 overflow-x-auto  justify-center">
+            {menuData[active].map((item, index) => (
+              <span
+                key={index}
+                className="whitespace-nowrap cursor-pointer hover:text-red-600"
+              >
+                {item}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* MOBILE DRAWER */}
-      <Dialog open={open} onClose={setOpen} className="md:hidden">
+      <Dialog open={open} onClose={setOpen} className="lg:hidden">
         <div className="fixed inset-0 bg-black/30 z-40" />
 
         <Dialog.Panel className="fixed top-0 right-0 w-72 h-full bg-white z-50 p-5 shadow-lg">
+
           <div className="flex justify-between items-center">
             <Image src="/logo.png" alt="logo" width={120} height={50} />
             <button onClick={() => setOpen(false)}>
@@ -108,80 +129,67 @@ export default function Navbar() {
             </button>
           </div>
 
-          <div className="mt-6 flex flex-col gap-5 font-medium">
-            <Link
-              href="/"
-              onClick={() => setOpen(false)}
-              className={
-                isHome ? "text-red-600 font-semibold" : "text-gray-700"
-              }
-            >
-              Home
-            </Link>
+         <div className="mt-6 flex flex-col gap-5 font-medium">
 
-            <Link
-              href="/no-data/about"
-              onClick={() => setOpen(false)}
-              className={
-                isAbout ? "text-red-600 font-semibold" : "text-gray-700"
-              }
-            >
-              About
-            </Link>
+  <Link
+    href="/"
+    onClick={() => setOpen(false)}
+    className={isHome ? "text-red-600 font-semibold" : "text-gray-700"}
+  >
+    Home
+  </Link>
 
-            <Link
-              href="/no-data/how-it-works"
-              onClick={() => setOpen(false)}
-              className={isHow ? "text-red-600 font-semibold" : "text-gray-700"}
-            >
-              How It Works
-            </Link>
+  <Link
+    href="/no-data/about"
+    onClick={() => setOpen(false)}
+    className={isAbout ? "text-red-600 font-semibold" : "text-gray-700"}
+  >
+    About
+  </Link>
 
-            <Link
-              href="/men/login"
-              onClick={() => setOpen(false)}
-              className={isMen ? "text-red-600 font-semibold" : "text-gray-700"}
-            >
-              Men
-            </Link>
+  <Link
+    href="/no-data/how-it-works"
+    onClick={() => setOpen(false)}
+    className={isHow ? "text-red-600 font-semibold" : "text-gray-700"}
+  >
+    How It Works
+  </Link>
 
-            <Link
-              href="/women/login"
-              onClick={() => setOpen(false)}
-              className={
-                isWomen ? "text-red-600 font-semibold" : "text-gray-700"
-              }
-            >
-              Women
-            </Link>
+  <Link
+    href="/men/login"
+    onClick={() => setOpen(false)}
+    className={isMen ? "text-red-600 font-semibold" : "text-gray-700"}
+  >
+    Men
+  </Link>
 
-            <Link
-              href="/no-data/testimonials"
-              onClick={() => setOpen(false)}
-              className={
-                isTestimonial ? "text-red-600 font-semibold" : "text-gray-700"
-              }
-            >
-              Testimonials
-            </Link>
+  <Link
+    href="/women/login"
+    onClick={() => setOpen(false)}
+    className={isWomen ? "text-red-600 font-semibold" : "text-gray-700"}
+  >
+    Women
+  </Link>
 
-            <Link
-              href="/no-data/contact"
-              onClick={() => setOpen(false)}
-              className={
-                isContact ? "text-red-600 font-semibold" : "text-gray-700"
-              }
-            >
-              Contact
-            </Link>
+  <Link
+    href="/no-data/testimonials"
+    onClick={() => setOpen(false)}
+    className={isTestimonial ? "text-red-600 font-semibold" : "text-gray-700"}
+  >
+    Testimonials
+  </Link>
 
-            <Link href="/login" onClick={() => setOpen(false)}>
-              <button className="mt-4 bg-[rgba(161,29,40,1)] text-white px-4 py-2 rounded-lg">
-                Login
-              </button>
-            </Link>
-          </div>
+  <Link
+    href="/no-data/contact"
+    onClick={() => setOpen(false)}
+    className={isContact ? "text-red-600 font-semibold" : "text-gray-700"}
+  >
+    Contact
+  </Link>
 
+</div>
+
+          {/* MOBILE SUBMENU */}
           {showSubmenu && (
             <div className="mt-6 border-t pt-4 flex flex-col gap-3 text-sm text-gray-600">
               {menuData[active].map((item, index) => (
@@ -189,18 +197,10 @@ export default function Navbar() {
               ))}
             </div>
           )}
+
         </Dialog.Panel>
       </Dialog>
 
-      {showSubmenu && (
-        <div className="border-t px-10 py-3 hidden md:flex gap-10 text-md text-gray-700 overflow-x-auto">
-          {menuData[active].map((item, index) => (
-            <span key={index} className="whitespace-nowrap cursor-pointer">
-              {item}
-            </span>
-          ))}
-        </div>
-      )}
     </header>
   );
 }

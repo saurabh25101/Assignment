@@ -1,5 +1,31 @@
+ 
 import Image from "next/image";
+import {
+  FaAngry,
+  FaFrown,
+  FaGrinTongueWink,
+  FaMeh,
+  FaSmileBeam,
+} from "react-icons/fa";
 import CustomButton from "../btn/page";
+
+/* -------------------- REUSABLE COMPONENTS -------------------- */
+
+const RatingCard = () => (
+  <div className="w-[230px] h-[150px] bg-[#EDEDED] rounded-[10px] p-4 flex flex-col justify-between shadow-sm ">
+    <p className="text-sm font-semibold text-[#555]">Best Ratings</p>
+
+   <div className="flex flex-col gap-2">
+
+     <div className="h-[10px] w-[170px] bg-gray-300 rounded-full"></div>
+
+     <div className="h-[10px] w-[190px] bg-gray-300 rounded-full"></div>
+
+   </div>
+
+   ___+
+  </div>
+);
 
 const ArrowTrendingUp = () => (
   <svg
@@ -8,7 +34,7 @@ const ArrowTrendingUp = () => (
     viewBox="0 0 24 24"
     strokeWidth={2}
     stroke="currentColor"
-    className="w-6 h-6 text-green-500"
+    className="w-5 h-5 text-green-500"
   >
     <path
       strokeLinecap="round"
@@ -18,59 +44,23 @@ const ArrowTrendingUp = () => (
   </svg>
 );
 
-const avatarRow1 = [
-  { type: "photo", src: "/small-logo.jpg" },
-  { type: "photo", src: "/small-logo.jpg" },
-  { type: "initial", initials: "P" },
-];
-
-const avatarRow12 = [
-  { type: "initial", initials: "FJ" },
-  { type: "initial", initials: "S" },
-  { type: "photo", src: "/small-logo.jpg" },
-];
-
-const avatarRow2 = [
-  { type: "photo", src: "/small-logo.jpg" },
-  { type: "photo", src: "/small-logo.jpg" },
-  { type: "initial", initials: "S" },
-  { type: "photo", src: "/small-logo.jpg" },
-];
-
-const avatarRow23 = [
-  { type: "photo", src: "/small-logo.jpg" },
-  { type: "initial", initials: "S" },
-  { type: "initial", initials: "Fy" },
-];
-
-const renderAvatar = (avatar, i) => {
-  if (avatar.type === "photo") {
-    return (
-      <img
-        key={i}
-        src={avatar.src}
-        alt="user avatar"
-        width={28}
-        height={28}
-        className="rounded-full border-2 border-white object-cover w-7 h-7 shrink-0"
-      />
-    );
-  }
-  return (
-    <div
-      key={i}
-      className="w-7 h-7 rounded-full bg-orange-500 border-2 border-white flex items-center justify-center text-white font-semibold shrink-0"
-      style={{ fontSize: "8px" }}
-    >
-      {avatar.initials}
+const Avatar = ({ src, initials }) =>
+  src ? (
+    <img
+      src={src}
+      alt="avatar"
+      className="w-7 h-7 rounded-full border-2 border-white object-cover"
+    />
+  ) : (
+    <div className="w-7 h-7 rounded-full bg-orange-500 border-2 border-white flex items-center justify-center text-[9px] font-semibold text-white">
+      {initials}
     </div>
   );
-};
 
 const StatsCard = () => (
-  <div className="w-59.75 h-63 bg-white rounded-[10px] p-5 flex flex-col shadow-md shrink-0">
+  <div className="w-[240px] bg-white rounded-[10px] p-5 shadow-md ">
     <div className="flex justify-between items-start">
-      <h2 className="text-[26px] font-semibold text-[#0B1B3F]">30,000+</h2>
+      <h3 className="text-[24px] font-semibold text-[#0B1B3F]">30,000+</h3>
       <ArrowTrendingUp />
     </div>
 
@@ -78,94 +68,98 @@ const StatsCard = () => (
       Blood test in July 2025 with 5 star ratings and happy clients.
     </p>
 
-    <div className="h-px bg-orange-400 mt-4 w-full"></div>
+    <div className="h-px bg-orange-400 mt-4" />
 
     <div className="flex flex-col gap-3 mt-4">
-      <div className="flex items-center gap-3">
-        <div className="flex -space-x-2">
-          {avatarRow1.map((avatar, i) => renderAvatar(avatar, i))}
-        </div>
-        <div className="flex -space-x-2">
-          {avatarRow12.map((avatar, i) => renderAvatar(avatar, i))}
-        </div>
+      <div className="flex -space-x-2">
+        <Avatar src="/small-logo.jpg" />
+        <Avatar src="/small-logo.jpg" />
+        <Avatar initials="P" />
+        <Avatar initials="FJ" />
+        <Avatar initials="S" />
       </div>
-      <div className="flex items-center gap-3">
-        <div className="flex -space-x-2">
-          {avatarRow2.map((avatar, i) => renderAvatar(avatar, i))}
-        </div>
-        <div className="flex -space-x-2">
-          {avatarRow23.map((avatar, i) => renderAvatar(avatar, i))}
-        </div>
+
+      <div className="flex -space-x-2">
+        <Avatar src="/small-logo.jpg" />
+        <Avatar src="/small-logo.jpg" />
+        <Avatar initials="S" />
+        <Avatar src="/small-logo.jpg" />
+        <Avatar initials="Fy" />
       </div>
     </div>
   </div>
 );
 
-export default function About() {
+const ImageCard = ({ src }) => (
+  <div className="relative w-[280px] h-[380px] rounded-xl overflow-hidden shadow-lg">
+    <Image src={src} alt="about" fill className="object-cover" />
+  </div>
+);
+
+/* -------------------- MAIN COMPONENT -------------------- */
+
+export default function AboutSection() {
   return (
-    <section className="w-full bg-[#F86E00] text-white px-6 md:px-16">
-      <div className="grid md:grid-cols-2 gap-12 items-center">
-        {/* LEFT SIDE */}
-        <div>
-          {/* ── MOBILE ONLY ── */}
-          <div className="flex flex-col gap-5 items-center py-10 md:hidden">
-            {/* 👉 StatsCard UPPER */}
+    <section className="w-full bg-[#F86E00] text-white px-6 md:px-16 py-12 md:py-20">
+      <div className="grid lg:grid-cols-2 gap-12 items-center">
+        {/* LEFT */}
+        <div className="flex justify-center">
+          {/* MOBILE */}
+          <div className="flex flex-col items-center gap-6 md:hidden">
             <StatsCard />
-
-            {/* Image 1 */}
-            <div className="relative w-full max-w-xs h-64 rounded-xl overflow-hidden shadow-lg">
-              <Image
-                src="/about-img1.jpg"
-                alt="about"
-                fill
-                className="object-cover"
-              />
-            </div>
-
-            {/* Image 2 */}
-            <div className="relative w-full max-w-xs h-72 rounded-xl overflow-hidden shadow-xl">
-              <Image
-                src="/Image.png"
-                alt="about"
-                fill
-                className="object-cover"
-              />
-            </div>
+            <ImageCard src="/about-img1.jpg" />
+            <ImageCard src="/Image.png" />
+            <RatingCard />
           </div>
-          {/* ── DESKTOP ONLY: original overlapping layout ── */}
-          <div className="hidden md:flex md:relative md:justify-center">
-            {/* Top Image */}
-            <div className="absolute top-0 left-0 w-56 h-72 rounded-xl overflow-hidden shadow-lg mt-20">
-              <Image
-                src="/about-img1.jpg"
-                alt="about"
-                fill
-                className="object-cover"
-              />
-            </div>
 
-            {/* Bottom Image */}
-            <div className="relative mt-70 left-62 w-64 h-80 rounded-xl overflow-hidden shadow-xl">
-              <Image
-                src="/Image.png"
-                alt="about"
-                fill
-                className="object-cover"
-              />
-            </div>
+          {/* DESKTOP */}
+         <div className="hidden md:flex justify-center">
+ <div className="relative w-[600px] min-h-[800px]">
 
-            {/* Stats Card */}
-            <StatsCard />
-          </div>
+    {/* Top Image */}
+    <div className="absolute left-0 top-0 w-[300px] h-[400px] rounded-xl overflow-hidden shadow-lg top-20">
+      <Image
+        src="/about-img1.jpg"
+        alt="about"
+        fill
+        className="object-cover"
+      />
+    </div>
+
+    {/* Bottom Image */}
+    <div className="absolute   w-[300px] h-[400px] rounded-xl overflow-hidden shadow-xl left-85  top-[270px]">
+      
+      <Image
+        src="/Image.png"
+        alt="about"
+        fill
+        className="object-cover"
+      />
+    </div>
+
+    {/* Stats Card (TOP CENTER overlap controlled) */}
+    <div className="absolute top-[0px] left-85">
+      <StatsCard />
+    </div>
+
+    {/* Rating Card (BOTTOM LEFT safe area) */}
+    <div className="absolute  left-[20px] z-20 top-[500px]">
+      <RatingCard />
+    </div>
+
+  </div>
+</div>
         </div>
 
-        {/* RIGHT SIDE (Content) */}
-        <div className="text-left max-w-xl mt-0 md:mt-50 pb-10 md:pb-0">
-          <p className="tracking-widest text-sm mb-2">INNER ME</p>
+        {/* RIGHT */}
+        <div className="w-full max-w-[420px] mx-auto text-center lg:text-left">
+          <p className="tracking-[3px] text-xs mb-2">INNER ME</p>
 
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">About Us</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            About Us
+          </h2>
 
-          <p className="leading-relaxed text-lg text-white/90">
+          <p className="text-sm md:text-base leading-relaxed text-white/90">
             We exist to help people take control of their health through deeper
             testing, personalised insights and clear, actionable guidance.
             <br />
@@ -180,7 +174,7 @@ export default function About() {
             life, performance and longevity.
           </p>
 
-          <CustomButton variant="white" className="mt-8 px-6 py-3 font-medium mb-10 btn-all">
+           <CustomButton variant="white" className="mt-8 px-6 py-3 font-medium mb-10 btn-all">
   Explore More
 </CustomButton>
         </div>

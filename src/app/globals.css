@@ -58,16 +58,16 @@ body {
   clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
 } 
   */
-  .login-btn {
-  width: 126px;
+   .login-btn {
+  min-width: 126px; /* instead of fixed width */
   height: 46px;
 
- 
+  padding: 0 18px; /* add padding instead */
+
   border: none;
-  font-size: 16px;
   border-radius: 7px;
 
-  display: flex;
+  display: inline-flex; /* FIX */
   align-items: center;
   justify-content: center;
 
@@ -75,14 +75,14 @@ body {
   transition: all 0.2s ease;
 
   clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
-    font-family: 'Hanken Grotesk', sans-serif;
+
+  font-family: 'Hanken Grotesk', sans-serif;
   font-weight: 600;
   font-size: 17px;
   line-height: 28px;
- 
+
   text-transform: uppercase;
 }
-
 .btn-book {
   max-width: 143px;
   height: 42px;
@@ -101,3 +101,4 @@ body {
   .btn-primary {
     @apply bg-[#A11D28] text-white py-3 rounded-lg font-medium transition-all duration-200 hover:bg-[#86151d] active:scale-95;
   }
+  
