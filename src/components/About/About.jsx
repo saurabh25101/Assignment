@@ -23,7 +23,13 @@ const RatingCard = () => (
 
    </div>
 
-   ___+
+     <div className="flex items-center justify-between">
+  <FaAngry className="text-orange-500 drop-shadow-lg" size={22} />
+  <FaFrown className="text-yellow-500 drop-shadow-lg" size={22} />
+  <FaMeh className="text-yellow-400 drop-shadow-lg" size={22} />
+  <FaGrinTongueWink className="text-yellow-500 drop-shadow-lg" size={22} />
+  <FaSmileBeam className="text-yellow-600 drop-shadow-lg" size={24} />
+</div>
   </div>
 );
 
