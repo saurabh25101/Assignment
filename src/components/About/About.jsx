@@ -1,5 +1,4 @@
- 
-import Image from "next/image";
+ import Image from "next/image";
 import {
   FaAngry,
   FaFrown,
@@ -12,24 +11,21 @@ import CustomButton from "../btn/page";
 /* -------------------- REUSABLE COMPONENTS -------------------- */
 
 const RatingCard = () => (
-  <div className="w-[230px] h-[150px] bg-[#EDEDED] rounded-[10px] p-4 flex flex-col justify-between shadow-sm ">
+  <div className="w-full max-w-[230px] h-[150px] bg-[#EDEDED] rounded-[10px] p-4 flex flex-col justify-between shadow-sm">
     <p className="text-sm font-semibold text-[#555]">Best Ratings</p>
 
-   <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2">
+      <div className="h-[10px] w-full bg-gray-300 rounded-full"></div>
+      <div className="h-[10px] w-full bg-gray-300 rounded-full"></div>
+    </div>
 
-     <div className="h-[10px] w-[170px] bg-gray-300 rounded-full"></div>
-
-     <div className="h-[10px] w-[190px] bg-gray-300 rounded-full"></div>
-
-   </div>
-
-     <div className="flex items-center justify-between">
-  <FaAngry className="text-orange-500 drop-shadow-lg" size={22} />
-  <FaFrown className="text-yellow-500 drop-shadow-lg" size={22} />
-  <FaMeh className="text-yellow-400 drop-shadow-lg" size={22} />
-  <FaGrinTongueWink className="text-yellow-500 drop-shadow-lg" size={22} />
-  <FaSmileBeam className="text-yellow-600 drop-shadow-lg" size={24} />
-</div>
+    <div className="flex items-center justify-between">
+      <FaAngry className="text-orange-500 drop-shadow-lg" size={22} />
+      <FaFrown className="text-yellow-500 drop-shadow-lg" size={22} />
+      <FaMeh className="text-yellow-400 drop-shadow-lg" size={22} />
+      <FaGrinTongueWink className="text-yellow-500 drop-shadow-lg" size={22} />
+      <FaSmileBeam className="text-yellow-600 drop-shadow-lg" size={24} />
+    </div>
   </div>
 );
 
@@ -64,7 +60,7 @@ const Avatar = ({ src, initials }) =>
   );
 
 const StatsCard = () => (
-  <div className="w-[240px] bg-white rounded-[10px] p-5 shadow-md ">
+  <div className="w-full max-w-[240px] bg-white rounded-[10px] p-5 shadow-md">
     <div className="flex justify-between items-start">
       <h3 className="text-[24px] font-semibold text-[#0B1B3F]">30,000+</h3>
       <ArrowTrendingUp />
@@ -97,7 +93,7 @@ const StatsCard = () => (
 );
 
 const ImageCard = ({ src }) => (
-  <div className="relative w-[280px] h-[380px] rounded-xl overflow-hidden shadow-lg">
+  <div className="relative w-full max-w-[280px] h-[380px] rounded-xl overflow-hidden shadow-lg">
     <Image src={src} alt="about" fill className="object-cover" />
   </div>
 );
@@ -119,42 +115,27 @@ export default function AboutSection() {
           </div>
 
           {/* DESKTOP */}
-         <div className="hidden md:flex justify-center">
- <div className="relative w-[600px] min-h-[800px]">
+          <div className="hidden md:flex justify-center">
+            <div className="relative w-[600px] min-h-[800px]">
 
-    {/* Top Image */}
-    <div className="absolute left-0 top-0 w-[300px] h-[400px] rounded-xl overflow-hidden shadow-lg top-20">
-      <Image
-        src="/about-img1.jpg"
-        alt="about"
-        fill
-        className="object-cover"
-      />
-    </div>
+              <div className="absolute left-0 top-0 w-[300px] h-[400px] rounded-xl overflow-hidden shadow-lg top-20">
+                <Image src="/about-img1.jpg" alt="about" fill className="object-cover" />
+              </div>
 
-    {/* Bottom Image */}
-    <div className="absolute   w-[300px] h-[400px] rounded-xl overflow-hidden shadow-xl left-85  top-[270px]">
-      
-      <Image
-        src="/Image.png"
-        alt="about"
-        fill
-        className="object-cover"
-      />
-    </div>
+              <div className="absolute w-[300px] h-[400px] rounded-xl overflow-hidden shadow-xl left-85 top-[270px]">
+                <Image src="/Image.png" alt="about" fill className="object-cover" />
+              </div>
 
-    {/* Stats Card (TOP CENTER overlap controlled) */}
-    <div className="absolute top-[0px] left-85">
-      <StatsCard />
-    </div>
+              <div className="absolute top-[0px] left-85">
+                <StatsCard />
+              </div>
 
-    {/* Rating Card (BOTTOM LEFT safe area) */}
-    <div className="absolute  left-[20px] z-20 top-[500px]">
-      <RatingCard />
-    </div>
+              <div className="absolute left-[20px] z-20 top-[500px]">
+                <RatingCard />
+              </div>
 
-  </div>
-</div>
+            </div>
+          </div>
         </div>
 
         {/* RIGHT */}
@@ -168,21 +149,19 @@ export default function AboutSection() {
           <p className="text-sm md:text-base leading-relaxed text-white/90">
             We exist to help people take control of their health through deeper
             testing, personalised insights and clear, actionable guidance.
-            <br />
-            <br />
+            <br /><br />
             Rather than focusing on diagnosis alone, we use high-quality
             laboratory testing alongside human clinical oversight to support
             proactive, long-term health decisions.
-            <br />
-            <br />
+            <br /><br />
             Our approach combines accurate data with functional interpretation,
             helping individuals understand what their results mean for real
             life, performance and longevity.
           </p>
 
-           <CustomButton variant="white" className="mt-8 px-6 py-3 font-medium mb-10 btn-all">
-  Explore More
-</CustomButton>
+          <CustomButton variant="white" className="mt-8 px-6 py-3 font-medium mb-10 btn-all">
+            Explore More
+          </CustomButton>
         </div>
       </div>
     </section>

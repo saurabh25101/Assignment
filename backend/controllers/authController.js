@@ -8,7 +8,7 @@ exports.signup = (req, res) => {
 
   const hashed = bcrypt.hashSync(password, 10);
 
-  const sql = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
+  const sql = "INSERT INTO users1 (name, email, password) VALUES (?, ?, ?)";
 
   db.query(sql, [name, email, hashed], (err, result) => {
     if (err) {
@@ -23,7 +23,7 @@ exports.signup = (req, res) => {
 exports.login = (req, res) => {
   const { email, password } = req.body;
 
-  db.query("SELECT * FROM users WHERE email = ?", [email], (err, result) => {
+  db.query("SELECT * FROM users1 WHERE email = ?", [email], (err, result) => {
     if (err) return res.status(500).json(err);
 
     if (result.length === 0) {
@@ -55,7 +55,7 @@ exports.forgotPassword = (req, res) => {
 
   console.log("Generated OTP:", otp); // ✅ CORRECT PLACE
 
-  const sql = "UPDATE users SET otp=?, otp_expiry=? WHERE email=?";
+  const sql = "UPDATE users1 SET otp=?, otp_expiry=? WHERE email=?";
 
   db.query(sql, [otp, expiry, email], (err, result) => {
     if (err) return res.status(500).json(err);
@@ -68,7 +68,7 @@ exports.forgotPassword = (req, res) => {
 exports.verifyOtp = (req, res) => {
   const { email, otp } = req.body;
 
-  db.query("SELECT * FROM users WHERE email=?", [email], (err, result) => {
+  db.query("SELECT * FROM users1 WHERE email=?", [email], (err, result) => {
     if (err) return res.status(500).json(err);
 
     const user = result[0];
@@ -88,7 +88,7 @@ exports.resetPassword = (req, res) => {
   const hashed = bcrypt.hashSync(password, 10);
 
   const sql =
-    "UPDATE users SET password=?, otp=NULL, otp_expiry=NULL WHERE email=?";
+    "UPDATE users1 SET password=?, otp=NULL, otp_expiry=NULL WHERE email=?";
 
   db.query(sql, [hashed, email], (err, result) => {
     if (err) return res.status(500).json(err);
