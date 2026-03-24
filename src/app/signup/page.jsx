@@ -108,7 +108,7 @@ const router = useRouter();
             Use 8+ characters with letters & numbers
           </p>
 
-          <button onClick={handleSubmit} className="btn">
+          <button onClick={handleSubmit} className="w-full btn-primary">
             Sign Up
           </button>
 

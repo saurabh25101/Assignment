@@ -5,32 +5,30 @@ import { useRouter } from "next/navigation";
 
 export default function OTPForm() {
   const [otp, setOtp] = useState(["", "", "", ""]);
+  const [message, setMessage] = useState("");
+  const [isError, setIsError] = useState(false);
+
   const inputs = useRef([]);
   const router = useRouter();
 
-  // focus first input on load
   useEffect(() => {
     inputs.current[0]?.focus();
   }, []);
 
-  // handle input change
   const handleChange = (e, index) => {
     const value = e.target.value;
 
-    // allow only numbers
     if (!/^[0-9]?$/.test(value)) return;
 
     const newOtp = [...otp];
     newOtp[index] = value;
     setOtp(newOtp);
 
-    // move to next input
     if (value && index < 3) {
       inputs.current[index + 1].focus();
     }
   };
 
-  // handle backspace
   const handleKeyDown = (e, index) => {
     if (e.key === "Backspace") {
       if (otp[index]) {
@@ -43,11 +41,18 @@ export default function OTPForm() {
     }
   };
 
-  // verify OTP
   const handleVerify = async () => {
-    const finalOtp = otp.join("");
-    const email = localStorage.getItem("email");
+  const finalOtp = otp.join("");
+  const email = localStorage.getItem("email");
 
+  // ✅ Case 1: Empty ya incomplete OTP
+  if (finalOtp.length < 4) {
+    setMessage("Please enter 4-digit OTP");
+    setIsError(true);
+    return;
+  }
+
+  try {
     const res = await fetch("http://localhost:5000/api/auth/verify-otp", {
       method: "POST",
       headers: {
@@ -59,12 +64,23 @@ export default function OTPForm() {
     const data = await res.json();
 
     if (res.ok) {
-      alert("OTP Verified");
-      router.push("/newpassword");
+      setMessage("OTP verified successfully");
+      setIsError(false);
+
+      setTimeout(() => {
+        router.push("/newpassword");
+      }, 1500);
     } else {
-      alert(data.message || "Invalid OTP");
+      //  Case 2: Wrong OTP
+      setMessage("Please enter correct OTP");
+      setIsError(true);
     }
-  };
+  } catch (err) {
+    setMessage("Something went wrong");
+    setIsError(true);
+  }
+};
+  
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#f7f2f2] px-4">
@@ -95,12 +111,23 @@ export default function OTPForm() {
           </div>
 
           {/* Verify Button */}
-         <button
-  onClick={handleVerify}
-  className="w-full btn-primary rounded-xl"
->
-  Verify
-</button>
+          <button
+            onClick={handleVerify}
+            className="w-full btn-primary rounded-xl"
+          >
+            Verify
+          </button>
+
+       
+          {message && (
+            <p
+              className={`mt-4 text-center text-sm font-medium ${
+                isError ? "text-red-500" : "text-green-600"
+              }`}
+            >
+              {message}
+            </p>
+          )}
 
         </div>
       </div>

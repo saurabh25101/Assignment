@@ -60,7 +60,7 @@ export default function ForgotPasswordForm() {
             onChange={(e) => setEmail(e.target.value)}
           />
 
-          <button onClick={handleSubmit} className="btn">
+          <button onClick={handleSubmit} className="w-full btn-primary">
             Continue
           </button>
         </div>
