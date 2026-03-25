@@ -8,7 +8,7 @@ export default function NewPasswordForm() {
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const router = useRouter();
-
+const API = process.env.NEXT_PUBLIC_API_URL;
   const handleUpdate = async () => {
     if (password !== confirm) {
       alert("Passwords do not match");
@@ -17,7 +17,7 @@ export default function NewPasswordForm() {
 
     const email = localStorage.getItem("email");
 
-    const res = await fetch("http://localhost:5000/api/auth/reset-password", {
+    const res = await fetch(`${API}/api/auth/reset-password`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

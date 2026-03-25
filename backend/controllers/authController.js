@@ -51,9 +51,9 @@ exports.forgotPassword = (req, res) => {
   const { email } = req.body;
 
   const otp = Math.floor(1000 + Math.random() * 9000).toString();
-  const expiry = Date.now() + 5 * 60 * 1000;
+ const expiry = new Date().toISOString().slice(0, 19).replace("T", " ");
 
-  console.log("Generated OTP:", otp); // ✅ CORRECT PLACE
+  console.log("Generated OTP:", otp); 
 
   const sql = "UPDATE users1 SET otp=?, otp_expiry=? WHERE email=?";
 

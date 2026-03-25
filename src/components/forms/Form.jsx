@@ -4,29 +4,30 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";  
 import Link from "next/link";
 import toast from "react-hot-toast";
-
+ 
 export default function LoginForm() {
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
-
+const API = process.env.NEXT_PUBLIC_API_URL;
   const router = useRouter();  
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
-
+ 
   const handleLogin = async () => {
   try {
-    const res = await fetch("http://localhost:5000/api/auth/login", {
+    const res = await fetch(`${API}/api/auth/login`, {
+      
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(form),
     });
-
+ 
     const data = await res.json();
 
     if (res.ok) {

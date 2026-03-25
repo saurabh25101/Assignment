@@ -7,7 +7,7 @@ export default function OTPForm() {
   const [otp, setOtp] = useState(["", "", "", ""]);
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
-
+const API = process.env.NEXT_PUBLIC_API_URL;
   const inputs = useRef([]);
   const router = useRouter();
 
@@ -45,7 +45,7 @@ export default function OTPForm() {
   const finalOtp = otp.join("");
   const email = localStorage.getItem("email");
 
-  // ✅ Case 1: Empty ya incomplete OTP
+  //  Case 1: Empty ya incomplete OTP
   if (finalOtp.length < 4) {
     setMessage("Please enter 4-digit OTP");
     setIsError(true);
@@ -53,7 +53,7 @@ export default function OTPForm() {
   }
 
   try {
-    const res = await fetch("http://localhost:5000/api/auth/verify-otp", {
+    const res = await fetch(`${API}/auth/verify-otp`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
