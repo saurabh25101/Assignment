@@ -1,41 +1,48 @@
-"use client";
+ "use client";
 
 import AuthCard from "@/components/AuthCard";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import toast from "react-hot-toast";  
 
 export default function NewPasswordForm() {
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const router = useRouter();
-const API = process.env.NEXT_PUBLIC_API_URL;
+  const API = process.env.NEXT_PUBLIC_API_URL;
+
   const handleUpdate = async () => {
     if (password !== confirm) {
-      alert("Passwords do not match");
+      toast.error("Passwords do not match"); 
       return;
     }
 
     const email = localStorage.getItem("email");
 
-    const res = await fetch(`${API}/api/auth/reset-password`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    });
+    try {
+      const res = await fetch(`${API}/api/auth/reset-password`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
 
-    const data = await res.json();
+      const data = await res.json();
 
-    if (res.ok) {
-      alert("Password updated");
-
-      router.push("/success");
-    } else {
-      alert(data.message || "Error");
+      if (res.ok) {
+        toast.success("Password updated successfully "); 
+        setTimeout(() => {
+          router.push("/success");
+        }, 1500);
+      } else {
+        toast.error(data.message || "Something went wrong");
+      }
+    } catch (err) {
+      toast.error("Server error");
     }
   };
 
