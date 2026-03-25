@@ -1,13 +1,13 @@
- "use client";
+"use client";
 
-import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 
 export default function OTPForm() {
   const [otp, setOtp] = useState(["", "", "", ""]);
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
- 
+
   const inputs = useRef([]);
   const router = useRouter();
 
@@ -42,51 +42,49 @@ export default function OTPForm() {
   };
 const API = process.env.NEXT_PUBLIC_API_URL;
   const handleVerify = async () => {
-  const finalOtp = otp.join("");
-  const email = localStorage.getItem("email");
+    const finalOtp = otp.join("");
+    const email = localStorage.getItem("email");
 
-  //  Case 1: Empty ya incomplete OTP
-  if (finalOtp.length < 4) {
-    setMessage("Please enter 4-digit OTP");
-    setIsError(true);
-    return;
-  }
+  
+    if (finalOtp.length < 4) {
+      setMessage("Please enter 4-digit OTP");
+      setIsError(true);
+      return;
+    }
 
-  try {
-    const res = await fetch(`${API}/auth/verify-otp`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, otp: finalOtp }),
-    });
+    try {
+      const res = await fetch(`${API}/api/auth/verify-otp`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, otp: finalOtp }),
+      });
 
-    const data = await res.json();
+      const data = await res.json();
 
-    if (res.ok) {
-      setMessage("OTP verified successfully");
-      setIsError(false);
+      if (res.ok) {
+        setMessage("OTP verified successfully");
+        setIsError(false);
 
-      setTimeout(() => {
-        router.push("/newpassword");
-      }, 1500);
-    } else {
-      //  Case 2: Wrong OTP
-      setMessage("Please enter correct OTP");
+        setTimeout(() => {
+          router.push("/newpassword");
+        }, 1500);
+      } else {
+        //  Case 2: Wrong OTP
+        setMessage("Please enter correct OTP");
+        setIsError(true);
+      }
+    } catch (err) {
+      setMessage("Something went wrong");
       setIsError(true);
     }
-  } catch (err) {
-    setMessage("Something went wrong");
-    setIsError(true);
-  }
-};
-  
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#f7f2f2] px-4">
       <div className="w-full max-w-lg">
         <div className="bg-white rounded-3xl shadow-xl p-8 sm:p-10">
-
           <h2 className="text-2xl font-semibold text-gray-800 mb-3">
             OTP Verification
           </h2>
@@ -118,7 +116,6 @@ const API = process.env.NEXT_PUBLIC_API_URL;
             Verify
           </button>
 
-       
           {message && (
             <p
               className={`mt-4 text-center text-sm font-medium ${
@@ -128,7 +125,6 @@ const API = process.env.NEXT_PUBLIC_API_URL;
               {message}
             </p>
           )}
-
         </div>
       </div>
     </div>
