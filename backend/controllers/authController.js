@@ -73,9 +73,9 @@ exports.verifyOtp = (req, res) => {
 
     const user = result[0];
 
-    if (!user || user.otp !== otp || user.otp_expiry < Date.now()) {
-      return res.status(400).json({ message: "Invalid OTP " });
-    }
+  if (!user || user.otp !== otp || new Date(user.otp_expiry) < new Date()) {
+  return res.status(400).json({ message: "Invalid OTP " });
+}
 
     res.json({ message: "OTP verified " });
   });
