@@ -7,7 +7,7 @@ export default function OTPForm() {
   const [otp, setOtp] = useState(["", "", "", ""]);
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
-const API = process.env.NEXT_PUBLIC_API_URL;
+ 
   const inputs = useRef([]);
   const router = useRouter();
 
@@ -40,7 +40,7 @@ const API = process.env.NEXT_PUBLIC_API_URL;
       }
     }
   };
-
+const API = process.env.NEXT_PUBLIC_API_URL;
   const handleVerify = async () => {
   const finalOtp = otp.join("");
   const email = localStorage.getItem("email");
