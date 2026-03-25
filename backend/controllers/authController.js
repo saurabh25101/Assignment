@@ -47,17 +47,16 @@ exports.login = (req, res) => {
 };
 
  
-exports.forgotPassword = (req, res) => {
+ exports.forgotPassword = (req, res) => {
   const { email } = req.body;
 
   const otp = Math.floor(1000 + Math.random() * 9000).toString();
- const expiry = new Date().toISOString().slice(0, 19).replace("T", " ");
 
-  console.log("Generated OTP:", otp); 
+  const today = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
 
   const sql = "UPDATE users1 SET otp=?, otp_expiry=? WHERE email=?";
 
-  db.query(sql, [otp, expiry, email], (err, result) => {
+  db.query(sql, [otp, today, email], (err, result) => {
     if (err) return res.status(500).json(err);
 
     res.json({ message: "OTP sent", otp });
@@ -65,7 +64,7 @@ exports.forgotPassword = (req, res) => {
 };
 
 // ================= VERIFY OTP =================
-exports.verifyOtp = (req, res) => {
+ exports.verifyOtp = (req, res) => {
   const { email, otp } = req.body;
 
   db.query("SELECT * FROM users1 WHERE email=?", [email], (err, result) => {
@@ -73,15 +72,17 @@ exports.verifyOtp = (req, res) => {
 
     const user = result[0];
 
-  if (
-  !user ||
-  String(user.otp) !== String(otp) ||
-  new Date(user.otp_expiry) < new Date()
-) {
-  return res.status(400).json({ message: "Invalid OTP " });
-}
+    const today = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
 
-    res.json({ message: "OTP verified " });
+    if (
+      !user ||
+      String(user.otp) !== String(otp) ||
+      user.otp_expiry < today
+    ) {
+      return res.status(400).json({ message: "Invalid OTP" });
+    }
+
+    res.json({ message: "OTP verified" });
   });
 };
 
